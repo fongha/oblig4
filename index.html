@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/static/main.css">
+<header>
+    <h1>Welcome! Int Elligence(5); at your service.</h1>
+</header>
+<body>
+<p>
+    Please search for a city in Norway.
+<form action="/forecast" method="POST">
+    <div>
+        <input type="search" id="mySearch" name="name"
+               placeholder="Search..." required>
+        <button>Search</button>
+        <span class="validity"></span>
+    </div>
+</form>
+</p>
+</body>
+<footer>
+    <br>
+    <br>
+    Weather forecast made by Int Elligence(5); course IS-105 "Datakommunikasjon og operativsystem"
+    <br>
+    API gathered from openweathermap.org
+</footer>
+</html>

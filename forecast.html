@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/static/main.css">
+<header>
+    <h1>Weathercast for {{.City.Name}}, {{.City.Country}}</h1>
+    <a href="/">Home</a>
+</header>
+
+<body>
+{{.TilbakeMeldinger.TilbakeMeldingene}}
+<p>
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Temperature</th>
+        <th>Forecast</th>
+        <th>Wind /mph</th>
+        <th>Comment</th>
+    </tr>
+{{range .List}}
+<tr>
+    <td> {{ .DtTxt }}</td>
+    <td>{{ .Main.Temp  }} ºF</td>
+{{range .Weather}}
+    <td>{{ .Description }}</td>
+{{end}}
+    <td>{{.Wind.Speed}}</td>
+{{end}}
+    <td>{{.TilbakeMeldinger.TilbakeMeldingene}}</td>
+</tr>
+
+
+</table>
+<br>
+</p>
+</body>
+<!--<footer>
+    <br>
+    <br>
+    This project is made available under the Open Database License:
+    http://opendatacommons.org/licenses/odbl/1.0/. Any rights in individual contents of the database are
+    licensed under the Database Contents License: http://opendatacommons.org/licenses/dbcl/1.0/
+</footer>-->
+</html>

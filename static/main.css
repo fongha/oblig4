@@ -1,0 +1,42 @@
+header{
+    background-image: url("https://raw.githubusercontent.com/Shengs/weathercast/master/public/img/cloud.png");
+    text-align: center;
+    padding: 50px;
+}
+
+body {
+    background-color: whitesmoke;
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+table{
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px;
+}
+
+th{
+    background-color: #C1DEED;
+}
+
+h3{
+    color: black;
+}
+
+h1{
+    color: white;
+}
+
+footer{
+    text-align: center;
+    bottom: 0;
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    background: #ccc;
+    color: #eaeaea;
+    font-size: 11px;
+}
