@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"html/template"
-	"strings"
-	"strconv"
+	//"strings"
+	//"strconv"
 )
-var tilbakeMld string
+
 type L struct {
 	Cod     string  `json:"cod"`
 	Message float64 `json:"message"`
@@ -26,6 +26,8 @@ type L struct {
 			GrndLevel float64 `json:"grnd_level"`
 			Humidity  int     `json:"humidity"`
 			TempKf    float64 `json:"temp_kf"`
+			Celsius	   float64
+			Comment		string
 		} `json:"main"`
 		Weather []struct {
 			ID          int    `json:"id"`
@@ -58,24 +60,6 @@ type L struct {
 		Country    string `json:"country"`
 		Population int    `json:"population"`
 	} `json:"city"`
-	TilbakeMeldinger struct {
-		TilbakeMelding1 TilbakeMelding
-		TilbakeMeldingene []TilbakeMelding
-	}
-}
-type TilbakeMelding struct {
-	TilbakeMld string
-}
-func (f *L) addMld(melding TilbakeMelding) []TilbakeMelding{
-	f.TilbakeMeldinger.TilbakeMeldingene = append(f.TilbakeMeldinger.TilbakeMeldingene, melding)
-	return f.TilbakeMeldinger.TilbakeMeldingene
-}
-type L2 struct {
-	List []struct{
-		Main struct {
-			Temp      float64 `json:"temp"`
-		}
-	}
 }
 
 func main(){
@@ -85,7 +69,7 @@ func main(){
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.ListenAndServe(":8080", nil)
 }
-var temperatur L2
+
 var weather L
 func showForecast(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
@@ -103,27 +87,22 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error:", er)
 	}
-	er2 := json.Unmarshal(jSonInfo, &temperatur)
-	if err != nil {
-		fmt.Println("error:", er2)
-	}
-	hentData()
 
-	fmt.Printf("%+v, %s", temperatur, "hallo")
+	//fmt.Printf("%+v", toCelsius())
+	weather.convert()
 
 	tmpl, err := template.ParseFiles("forecast.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	hentData()
+
 	if err := tmpl.Execute(w, weather); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func welcome (w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("method:", r.Method) //get request method
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("index.html")
 		t.Execute(w, nil)
@@ -132,35 +111,20 @@ func welcome (w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func hentData() {
-	//fmt.Println(len(temperatur.List))
-	for i := 0; i < len(temperatur.List); i++{
-		a := fmt.Sprintf("%+v", temperatur.List[i])
-		b := strings.Replace(a, "{", "", -1)
-		c := strings.Replace(b, "}", "", -1)
-		d := strings.Replace(c, "Main:Temp:", "", -1)
-		e, err := strconv.ParseFloat(d, 64)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println(len(temperatur.List))
-		fmt.Println(1)
-		if e >= 0 {
-			fmt.Println("Det er mer enn 0 grader")
-			tilbakeMld = "Det er mer enn 0 grader"
-		}else {
-			tilbakeMld = "blaaaorgn"
-		}
-		Test:= temperatur.List
-		pushData(tilbakeMld)
-		//fmt.Println(tilbakeMld)
-		fmt.Print(Test)
-	}
-	fmt.Println(2)
+func toCelsius(temp float64) float64{
+	c := (temp-32)/1.8000
+	return c
 }
 
-func pushData(mld string) {
-	tilbakeMeldingen := L{}
-	tilbakeMeldingen.TilbakeMeldinger.TilbakeMelding1 = TilbakeMelding{tilbakeMld}
-	tilbakeMeldingen.TilbakeMeldinger.TilbakeMeldingene = []TilbakeMelding{}
+func  (w *L) convert(){
+	for i := 0; i < len(w.List); i++{
+		c := toCelsius(w.List[i].Main.Temp)
+		w.List[i].Main.Celsius = c
+
+		if c >= 7{
+			w.List[i].Main.Comment = "Ta på deg solkrem"
+		} else {
+			w.List[i].Main.Comment = "Ta på deg jakke"
+		}
+	}
 }

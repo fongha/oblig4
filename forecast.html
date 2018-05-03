@@ -7,7 +7,7 @@
 </header>
 
 <body>
-{{.TilbakeMeldinger.TilbakeMeldingene}}
+
 <p>
 <table>
     <tr>
@@ -18,16 +18,16 @@
         <th>Comment</th>
     </tr>
 {{range .List}}
-<tr>
+    <tr>
     <td> {{ .DtTxt }}</td>
-    <td>{{ .Main.Temp  }} ºF</td>
-{{range .Weather}}
+    <td>{{printf "%.2f" .Main.Celsius}} ºC</td>
+    {{range .Weather}}
     <td>{{ .Description }}</td>
-{{end}}
+    {{end}}
     <td>{{.Wind.Speed}}</td>
+        <td>{{ .Main.Comment }}</td>
 {{end}}
-    <td>{{.TilbakeMeldinger.TilbakeMeldingene}}</td>
-</tr>
+    </tr>
 
 
 </table>
