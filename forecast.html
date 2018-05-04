@@ -7,27 +7,29 @@
 </header>
 
 <body>
-
-<p>
 <table>
     <tr>
         <th>Time</th>
-        <th>Temperature</th>
+        <th>Temperature</a></th>
         <th>Forecast</th>
-        <th>Wind /mph</th>
+        <th>Illustration</th>
+        <th>Wind</th>
+
         <th>Comment</th>
     </tr>
 {{range .List}}
-    <tr>
-    <td> {{ .DtTxt }}</td>
-    <td>{{printf "%.0f" .Main.Celsius}} ºC/ {{printf "%.0f" .Main.Temp}} ºF</td>
-    {{range .Weather}}
+<tr>
+    <td align ="right"> {{ .DtTxt }}</td>
+    <td>{{printf "%.0f" .Main.Celsius}} ºC / {{printf "%.0f" .Main.Temp}} ºF</td>
+{{range .Weather}}
     <td>{{ .Description }}</td>
-    {{end}}
-    <td>{{printf "%.0f" .Wind.Speed}}</td>
-        <td>{{ .Main.Comment }}</td>
+    <td><img src = 'http://openweathermap.org/img/w/{{.Icon}}.png'></td>
 {{end}}
-    </tr>
+    <td>{{printf "%.1f" .Wind.Speed}} m/s</td>
+
+    <td>{{ .Main.Comment }}</td>
+{{end}}
+</tr>
 
 
 </table>

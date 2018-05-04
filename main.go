@@ -7,8 +7,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"html/template"
-	//"strings"
-	//"strconv"
+	"time"
 )
 
 type L struct {
@@ -28,6 +27,7 @@ type L struct {
 			TempKf    float64 `json:"temp_kf"`
 			Celsius	   float64
 			Comment		string
+			Time 		string
 		} `json:"main"`
 		Weather []struct {
 			ID          int    `json:"id"`
@@ -70,7 +70,9 @@ func main(){
 	http.ListenAndServe(":8080", nil)
 }
 
+
 var weather L
+
 func showForecast(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
 	page, err := http.Get("http://api.openweathermap.org/data/2.5/forecast?q="+name+"%2Cno&units=imperial&appid=0f4ee0e05eebd5458c5e59798b05a962")
@@ -88,6 +90,8 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error:", er)
 	}
 	weather.convert()
+	weather.dateTime()
+
 
 	tmpl, err := template.ParseFiles("forecast.html")
 	if err != nil {
@@ -121,26 +125,34 @@ func  (w *L) convert(){
 		c := toCelsius(w.List[i].Main.Temp)
 		w.List[i].Main.Celsius = c
 
-		if c >= 10{
-			w.List[i].Main.Comment = "It's summer time!"
-		} else {
-			w.List[i].Main.Comment = "You will need a thick jacket."
-		}
-
-		if c >= 30{
-			w.List[i].Main.Comment = "Don't get burned"
-		}
+		/**
+		mindre enn 0: Welcome to Norway
+		0-5 : You will need a thick jacket
+		5-15: Bring a jacket
+		15-20: It's summer time!
+		20-40: Don't get burned
+		50 -> : Good luck Chuck
+		 */
 
 		if c < 0{
 			w.List[i].Main.Comment = "Welcome to Norway"
+		} else if c <= 5 {
+			w.List[i].Main.Comment = "You will need a thick jacket."
 		}
 	}
 }
-/*
-func (s *L) fc(){
-	for i := 0; i < len(s.List); i++{
-		a := (s.List[i].Weather[i])
-		s.List[i].Weather.[1] = a
-		return
+
+func (w *L) dateTime() {
+	var oldDay, newDay string;
+	for i := 0; i < len(w.List); i++ {
+		layout := "2006-01-02 15:04:05"
+		t, _ := time.Parse(layout, w.List[i].DtTxt)
+		newDay = t.Format("Monday")
+		if newDay != oldDay {
+			oldDay = newDay
+			w.List[i].DtTxt = t.Format("Monday 2. Jan 15:04")
+		} else {
+			w.List[i].DtTxt = t.Format("15:04")
+		}
 	}
-}*/
+}
