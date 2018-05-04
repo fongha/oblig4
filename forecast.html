@@ -20,11 +20,11 @@
 {{range .List}}
     <tr>
     <td> {{ .DtTxt }}</td>
-    <td>{{printf "%.2f" .Main.Celsius}} ºC</td>
+    <td>{{printf "%.0f" .Main.Celsius}} ºC/ {{printf "%.0f" .Main.Temp}} ºF</td>
     {{range .Weather}}
     <td>{{ .Description }}</td>
     {{end}}
-    <td>{{.Wind.Speed}}</td>
+    <td>{{printf "%.0f" .Wind.Speed}}</td>
         <td>{{ .Main.Comment }}</td>
 {{end}}
     </tr>
@@ -34,11 +34,11 @@
 <br>
 </p>
 </body>
-<!--<footer>
+<footer>
     <br>
     <br>
     This project is made available under the Open Database License:
     http://opendatacommons.org/licenses/odbl/1.0/. Any rights in individual contents of the database are
     licensed under the Database Contents License: http://opendatacommons.org/licenses/dbcl/1.0/
-</footer>-->
+</footer>
 </html>

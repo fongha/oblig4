@@ -87,8 +87,6 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error:", er)
 	}
-
-	//fmt.Printf("%+v", toCelsius())
 	weather.convert()
 
 	tmpl, err := template.ParseFiles("forecast.html")
@@ -111,6 +109,8 @@ func welcome (w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//temp := weather.List[0].Main.Temp
+
 func toCelsius(temp float64) float64{
 	c := (temp-32)/1.8000
 	return c
@@ -121,10 +121,26 @@ func  (w *L) convert(){
 		c := toCelsius(w.List[i].Main.Temp)
 		w.List[i].Main.Celsius = c
 
-		if c >= 7{
-			w.List[i].Main.Comment = "Ta på deg solkrem"
+		if c >= 10{
+			w.List[i].Main.Comment = "It's summer time!"
 		} else {
-			w.List[i].Main.Comment = "Ta på deg jakke"
+			w.List[i].Main.Comment = "You will need a thick jacket."
+		}
+
+		if c >= 30{
+			w.List[i].Main.Comment = "Don't get burned"
+		}
+
+		if c < 0{
+			w.List[i].Main.Comment = "Welcome to Norway"
 		}
 	}
 }
+/*
+func (s *L) fc(){
+	for i := 0; i < len(s.List); i++{
+		a := (s.List[i].Weather[i])
+		s.List[i].Weather.[1] = a
+		return
+	}
+}*/
