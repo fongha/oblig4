@@ -127,7 +127,6 @@ func  (w *L) convert(){
 
 		c := toCelsius(w.List[i].Main.Temp)
 		w.List[i].Main.Celsius = c
-		fmt.Print(weatherMain)
 		weatherMain = weather.List[i].Weather[0].Main
 		/**
 		mindre enn 0: Welcome to Norway
