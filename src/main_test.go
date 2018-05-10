@@ -8,7 +8,6 @@ import (
 	"log"
 	"encoding/json"
 	"fmt"
-
 	"net"
 )
 
@@ -114,7 +113,7 @@ func TestConn(t *testing.T) {
 		if _, err := fmt.Fprintf(conn, message); err != nil { //skriver messagen "message" til porten :8080
 			t.Fatal(err)
 		}
-	}()
+	}
 
 	l, err := net.Listen("tcp", port) //lytter på :8080
 	if err != nil {
