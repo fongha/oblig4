@@ -24,7 +24,7 @@ func fileCheck(fName string) bool {
 
 //test index.html filen. For å teste andre filer: endre filnavnet.
 func TestIndex(t *testing.T) {
-	index := fileCheck("index.html") //fil i samme dir som kildekoden.
+	index := fileCheck("templates/index.html") //fil i samme dir som kildekoden.
 	if index != true {
 		t.Error("File not found.\n")
 	}else{
