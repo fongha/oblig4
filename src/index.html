@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="/static/main.css">
-<header>
-    <h1>Welcome! Int Elligence(5); at your service.</h1>
-</header>
-<body>
-<p>
-    Please search for a city in Norway.
-<form action="/forecast" method="POST">
-    <div>
-        <input type="search" id="mySearch" name="name"
-               placeholder="Search..." required>
-        <button>Search</button>
-        <span class="validity"></span>
-    </div>
-</form>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+<body id="indexbody">
+<div class="container">
+        <div class="header">
+            <div id="index">
+                <h1 id="indexTitle">Int Elligence(5);</h1>
+                <h4 id="info">Weather forecast brought to you by Int Elligence(5);
+                    <br>
+                    Please search for a city in Norway.</h4>
 
-
-</p>
+                <div class="search">
+                    <form action="/forecast" method="POST">
+                        <input type="search" id="mySearch" name="name"
+                               placeholder="Search for your city" required>
+                        <button>Search</button>
+                        <span class="validity"></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
 </body>
-<footer>
-    <br>
-    <br>
-    Weather forecast made by Int Elligence(5); course IS-105 "Datakommunikasjon og operativsystem"
-    <br>
-    API gathered from openweathermap.org
-</footer>
 </html>
