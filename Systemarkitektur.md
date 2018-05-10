@@ -5,4 +5,5 @@ Klienten vil gjennom applikasjonens kode opprette en forbindelse til webserver, 
 APIet fra Openweathermap blir oppdatert kontinuerlig. 
  
 Den bearbeidede dataen som vises i applikasjonen blir lagret i RAM, da vi ikke har noen ekstern lagringsplass. Siden kildekoden ikke inneholder noen globale variabler, eller individuelle tråder, vil informasjonen blir kun hentet og bearbeidet når klienten sender en request i applikasjonen (runtime).
-ILLUSTRASJON LENGER NED 
+<br>
+<img src="https://i.imgur.com/1ngqdTH.jpg" alt="Systemarkitektur">
