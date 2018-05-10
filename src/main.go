@@ -63,8 +63,9 @@ type L struct {
 }
 
 func main(){
-	http.HandleFunc("/", welcome)
+	http.HandleFunc("/", Welcome)
 	http.HandleFunc("/forecast", showForecast)
+	http.HandleFunc("/error", errorPage)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.ListenAndServe(":8080", nil)
@@ -89,22 +90,33 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error:", er)
 	}
-	weather.convert()
-	weather.dateTime()
+	s := string(weather.Cod)
+	if s != "200" {
+		http.Redirect(w, r, "/error", http.StatusSeeOther)
+	} else {
 
+		weather.convert()
+		weather.dateTime()
 
-	tmpl, err := template.ParseFiles("forecast.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+		tmpl, err := template.ParseFiles("forecast.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-	if err := tmpl.Execute(w, weather); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		if err := tmpl.Execute(w, weather); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 }
 
-func welcome (w http.ResponseWriter, r *http.Request) {
+func errorPage (w http.ResponseWriter, r *http.Request) {
+	e, _ := template.ParseFiles("error.html")
+	e.Execute (w, nil)
+}
+
+
+func Welcome (w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("index.html")
 		t.Execute(w, nil)
@@ -113,7 +125,6 @@ func welcome (w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//temp := weather.List[0].Main.Temp
 
 func toCelsius(temp float64) float64{
 	c := (temp-32)/1.8000
@@ -121,23 +132,46 @@ func toCelsius(temp float64) float64{
 }
 
 func  (w *L) convert(){
+	var weatherMain string
+
 	for i := 0; i < len(w.List); i++{
+
 		c := toCelsius(w.List[i].Main.Temp)
 		w.List[i].Main.Celsius = c
+		weatherMain = w.List[i].Weather[0].Main
 
-		/**
-		mindre enn 0: Welcome to Norway
-		0-5 : You will need a thick jacket
-		5-15: Bring a jacket
-		15-20: It's summer time!
-		20-40: Don't get burned
-		50 -> : Good luck Chuck
-		 */
-
-		if c < 0{
-			w.List[i].Main.Comment = "Welcome to Norway"
-		} else if c <= 5 {
-			w.List[i].Main.Comment = "You will need a thick jacket."
+		if weatherMain == "Snow" &&  c < 0 {
+			w.List[i].Main.Comment = "Better bring some warm clothes!"
+		} else if ( weatherMain == "Clouds" || weatherMain  == "Clear" ) &&  c < 0 {
+			w.List[i].Main.Comment = "It's chilly outside, but the weather is nice!"
+		} else if weatherMain == "Rain" && c < 0 {
+			w.List[i].Main.Comment = "It's cold and it's raining. Bring something warm and waterproof."
+		} else if weatherMain == "Snow" && c >= 0 && c < 5 {
+			w.List[i].Main.Comment = "It could be slippery outside. Heads up!"
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) && c >= 0 && c < 5 {
+			w.List[i].Main.Comment = "Wear a thick jacket."
+		} else if weatherMain == "Rain" && c >= 0 && c < 5 {
+			w.List[i].Main.Comment = "Bring a raincoat and wear something warm under."
+		} else if weatherMain == "Snow" && c >= 5 && c < 10 {
+			w.List[i].Main.Comment = "It'll be slushy outside. Bring some waterproof protection for you feet."
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) && c >= 5 && c < 10 {
+			w.List[i].Main.Comment = "Bring a jacket of your choosing."
+		} else if weatherMain == "Rain" && c >= 5 && c < 10 {
+			w.List[i].Main.Comment = "You should bring a raincoat or an umbrella today."
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) && c >= 10 && c < 15 {
+			w.List[i].Main.Comment = "You could wear a thin jacket or a warm sweater."
+		} else if weatherMain == "Rain" && c >= 10 && c < 15 {
+			w.List[i].Main.Comment = "Wear a raincoat or bring an umbrella."
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) && c >= 15 && c < 20 {
+			w.List[i].Main.Comment = "It is warm outside today! Wear something casual."
+		} else if weatherMain == "Rain" && c >= 15 && c < 20 {
+			w.List[i].Main.Comment = "Bummer! It's warm but it is still raining. Bring an umbrella."
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) && c >= 20 && c < 25 {
+			w.List[i].Main.Comment = "The weather is great! Perhaps you want to spend the day outside?"
+		} else if weatherMain == "Rain" && c >= 20 && c < 25 {
+			w.List[i].Main.Comment = "How unfortunate that it is raining on a hot day like this."
+		} else if ( weatherMain == "Clear" || weatherMain == "Clouds" ) &&  c < 30 {
+			w.List[i].Main.Comment = "This temperature is surreal! A swim would be nice on a day like this."
 		}
 	}
 }
