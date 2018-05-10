@@ -28,7 +28,7 @@ table.mainTable{
     padding-bottom: 100px;
     border-collapse: collapse;
     border-style: hidden;
-    border-top: black;
+    border-bottom: 1px solid;
 }
 
 .mainTable td, th{
