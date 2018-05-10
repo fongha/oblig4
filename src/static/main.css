@@ -6,7 +6,7 @@ html{
 header{
     background-image: url("http://colorhunt.co/blog/gradient-wallpapers-mobile/colorhunt-3.png");
     background-size: cover;
-    height: 350px;
+    height: 450px;
     width: 100%;
     white-space: nowrap;
     overflow: auto;
@@ -40,6 +40,8 @@ table.mainTable{
 }
 
 .titles {
+    color: black;
+    height: 20px;
     background-color: #48A1AB;
 }
 
@@ -154,13 +156,12 @@ h4{
     display: block;
 }
 
-
 #main-element{
     position: relative;
     margin: auto;
     top: 90px;
     width: 400px;
-    padding: 20px;
+    padding: 15px;
     display: block;
     overflow: hidden;
     background-size: cover;
@@ -174,6 +175,28 @@ h4{
     left: 250px;
     top: 0;
     position:absolute;
+}
+
+#wholeDay{
+    position: relative;
+    margin: auto;
+    top: 120px;
+    width: 455px;
+    height: auto;
+    padding: 0;
+    text-align: center;
+    display: block;
+}
+
+#wholeDay > #hours{
+    border-collapse: collapse;
+    border-style: hidden;
+}
+#wholeDay > #hours td{
+    border-right: 1px solid #358FA3;
+    padding: 0;
+    color: white;
+    line-height: 0;
 }
 
 #index{

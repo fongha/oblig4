@@ -16,10 +16,10 @@
             </form>
         </div>
     <div id="main-element">
-        <h4 style="opacity: 0.5">WEATHERCAST FOR TOMORROW:</h4>
+        <h4 style="opacity: 0.5">CURRENT WEATHERCAST:</h4>
         <br>
         <h1 class ="today" >{{.City.Name}}</h1>
-          {{ with $day := index .List 1}}
+          {{ with $day := index .List 0}}
               <h2>{{ printf "%.0f" $day.Main.Celsius }} ºC</h2><h4 id="currentDate" style="opacity: 0.5">{{ $day.DtTxt }}</h4>
                  {{with $weatherStruct := index .Weather 0}}
                      <div id="pic">
@@ -27,6 +27,72 @@
                      </div>
                  {{end}}
           {{end}}
+    </div>
+    <div id="wholeDay">
+        <table id="hours">
+            <tr>
+                <td>
+                {{with $first := index .List 1}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $first.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                            <br>
+                    {{ printf "%.0f" $first.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+                <td>
+                {{with $second := index .List 2}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $second.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                        <br>
+                    {{ printf "%.0f" $second.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+                <td>
+                {{with $third := index .List 3}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $third.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                        <br>
+                    {{ printf "%.0f" $third.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+                <td>
+                {{with $fourth := index .List 4}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $fourth.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                        <br>
+                    {{ printf "%.0f" $fourth.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+                <td>
+                {{with $fifth:= index .List 5}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $fifth.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                        <br>
+                    {{ printf "%.0f" $fifth.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+                <td>
+                {{with $sixth := index .List 6}}
+                    {{with $weatherS := index .Weather 0}}
+                        <h4 style="opacity: 0.6">{{ $sixth.DtTxt }}</h4>
+                    <img src='http://openweathermap.org/img/w/{{$weatherS.Icon}}.png' style="width: 70px;" id="currentIcon">
+                        <br>
+                    {{ printf "%.0f" $sixth.Main.Celsius }} ºC
+                    {{end}}
+                {{end}}
+                </td>
+            </tr>
+        </table>
     </div>
 </header>
 <body>
