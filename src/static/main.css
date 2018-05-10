@@ -1,46 +1,196 @@
+html{
+    height: 100%;
+    position: relative;
+}
+
 header{
-    background-image: url("https://raw.githubusercontent.com/Shengs/weathercast/master/public/img/cloud.png");
-    text-align: center;
-    padding: 50px;
+    background-image: url("http://colorhunt.co/blog/gradient-wallpapers-mobile/colorhunt-3.png");
+    background-size: cover;
+    height: 350px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 body {
+    height: 100%;
     background-color: whitesmoke;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Arial', serif;
     text-align: center;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
     font-size: 14px;
 }
 
-table{
-    margin: 0 auto;
+table.mainTable{
+    margin: auto;
     text-align: center;
     padding-bottom: 100px;
+    border-collapse: collapse;
+    border-style: hidden;
+    border-top: black;
 }
 
-th{
-    background-color: #C1DEED;
+.mainTable td, th{
+    border: 1px solid #48A1AB;
+}
+
+.mainTable tr:nth-child(even){
+    background-color: #eaeaea;
+}
+
+.titles {
+    background-color: #48A1AB;
+}
+
+.des:first-letter{
+    text-transform: capitalize;
 }
 
 td{
     padding: 0 15px 0 15px;
 }
 
-h3{
-    color: black;
-}
-
 h1{
     color: white;
+    font-size: 50px;
+}
+
+.location{
+    color: black;
+    font-size: 30px;
+}
+
+.container {
+    min-height: 70%;
+    min-height: -webkit-calc(100% - 100px);
+    min-height: -moz-calc(100% - 100px);
+    min-height: calc(100% - 100px);
 }
 
 footer{
     text-align: center;
-    bottom: 0;
-    position: fixed;
     height: 100px;
     width: 100%;
     background: #ccc;
     color: #eaeaea;
     font-size: 11px;
+}
+
+#mySearch{
+    display: inline-block;
+    width: 370px;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+#searchBtn{
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+h2{
+    color: white;
+    font-size: 60px;
+    text-align: left;
+    font-weight: bold;
+}
+
+h1.today{
+    text-align: left;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+h4{
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#headerTitle{
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.errorPic {
+    width: 100%;
+    position: relative;
+    background-image: url("https://i.imgur.com/NRALVF3.jpg");
+    background-size: cover;
+}
+
+.btn{
+    position: absolute;
+    top: 610px;
+    left: 325px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: transparent;
+    color: #C93D3C;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#currentIcon{
+    display: inline-block;
+}
+
+#currentDate{
+    text-transform: uppercase;
+}
+
+#top-element{
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    display: block;
+}
+
+
+#main-element{
+    position: relative;
+    margin: auto;
+    top: 90px;
+    width: 400px;
+    padding: 20px;
+    display: block;
+    overflow: hidden;
+    background-size: cover;
+    line-height: 0;
+    text-align: left;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+#pic{
+    left: 250px;
+    top: 0;
+    position:absolute;
+}
+
+#index{
+    width: auto;
+    text-align: center;
+    margin-top: 200px;
+}
+
+#indexbody{
+    background-image: url("http://colorhunt.co/blog/gradient-wallpapers-mobile/colorhunt-3.png");
+    background-size: cover;
+}
+
+#indexTitle{
+    font-size: 60px;
+}
+
+#info{
+    font-size: 14px;
 }
