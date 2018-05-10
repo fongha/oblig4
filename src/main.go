@@ -37,7 +37,7 @@ type L struct {
 }
 
 func main(){
-	http.HandleFunc("/", Welcome)
+	http.HandleFunc("/", welcome)
 	http.HandleFunc("/forecast", showForecast)
 	http.HandleFunc("/error", errorPage)
 	fs := http.FileServer(http.Dir("static"))
@@ -45,8 +45,6 @@ func main(){
 	http.ListenAndServe(":8080", nil)
 }
 
-
-var weather L
 
 func showForecast(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
@@ -59,6 +57,8 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	weather := L{}
 
 	er := json.Unmarshal(jSonInfo, &weather)
 	if err != nil {
@@ -90,7 +90,7 @@ func errorPage (w http.ResponseWriter, r *http.Request) {
 }
 
 
-func Welcome (w http.ResponseWriter, r *http.Request) {
+func welcome (w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("index.html")
 		t.Execute(w, nil)
