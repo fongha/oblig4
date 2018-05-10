@@ -72,7 +72,7 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 		weather.convert()
 		weather.dateTime()
 
-		tmpl, err := template.ParseFiles("forecast.html")
+		tmpl, err := template.ParseFiles("templates/forecast.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -85,14 +85,14 @@ func showForecast(w http.ResponseWriter, r *http.Request) {
 }
 
 func errorPage (w http.ResponseWriter, r *http.Request) {
-	e, _ := template.ParseFiles("error.html")
+	e, _ := template.ParseFiles("templates/error.html")
 	e.Execute (w, nil)
 }
 
 
 func welcome (w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		t, _ := template.ParseFiles("index.html")
+		t, _ := template.ParseFiles("templates/index.html")
 		t.Execute(w, nil)
 	} else {
 		r.ParseForm()
