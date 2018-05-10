@@ -42,9 +42,9 @@ func TestUrl(t *testing.T) {
 	by := "Kristiansand"
 	page, err1 := http.Get("http://api.openweathermap.org/data/2.5/forecast?q=" + by + "%2Cno&units=imperial&appid=0f4ee0e05eebd5458c5e59798b05a962")
 	if (err1 != nil ) { //sjekker http pakkens egen errorhandling.
-		t.Error("unvalid URL.\n")
+		t.Error("Unvalid URL.\n")
 	}else{
-		fmt.Print("valid URL.\n")
+		fmt.Print("Valid URL.\n")
 	}
 
 	jSonInfo, err := ioutil.ReadAll(page.Body)
@@ -61,7 +61,7 @@ func TestUrl(t *testing.T) {
 	if (sLi != "200" || err1 != nil ) {
 		t.Error("Status message: " + sLi)
 	}else{
-		fmt.Print("Status message: OK 200.\n")
+		fmt.Print("Status message: 200 OK.\n")
 	}
 
 }
