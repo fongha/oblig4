@@ -120,18 +120,18 @@ h4{
 .errorPic {
     width: 100%;
     position: relative;
-    background-image: url("https://i.imgur.com/NRALVF3.jpg");
+    background-image: url("https://i.imgur.com/j1mVcfP.jpg");
     background-size: cover;
 }
 
 .btn{
     position: absolute;
-    top: 610px;
-    left: 325px;
+    top: 620px;
+    left: 350px;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: transparent;
-    color: #C93D3C;
+    background-color: #C93D3C;
+    color: white;
     font-size: 25px;
     font-weight: bold;
     padding: 12px 24px;
@@ -139,6 +139,11 @@ h4{
     cursor: pointer;
     border-radius: 5px;
     text-align: center;
+}
+
+.btn:hover{
+    color: white;
+    background-color: #f44336;
 }
 
 #currentIcon{
