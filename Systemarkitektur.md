@@ -1,5 +1,5 @@
 <h1>Systemarkitektur</h1><br>
-Vår værapplikasjon består av: En klient som kjører applikasjonen i en browser, lokal webserver på port “:8080”, og databaseserverne til Openweathermap. Kildekoden/backend er skrevet i Go, mens HTML og CSS er brukt til presentasjon/front end.
+Vår værapplikasjon består av: en klient som kjører applikasjonen i en browser, lokal webserver på port “:8080”, og databaseserverne til Openweathermap. Kildekoden/backend er skrevet i Go, mens HTML og CSS er brukt til presentasjon/front end.
 <br><br>
 Applikasjonen består av filene main.go (kildekode i Go, logisk lag), index.html, forecast.html, og main.css (main_test.go trengs ikke for å kjøre applikasjonen.) <br>
 <b>main.go</b> initierer HTTP serveren, sender request om API, og bearbeider JSON-dataen. Den passer på hvilke .html filer som blir anvendt hvor, og tar for seg logiske funksjoner basert på JSON-dataen, som f.eks å gi kommentar til brukeren basert på værmeldingen.<br>
